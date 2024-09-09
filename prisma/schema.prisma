@@ -21,7 +21,7 @@ model Job {
   description       String?
   short_description String?
   imageUrl          String?
-  isPublished       Boolean  @default(false)
+  isPusblished      Boolean  @default(false)
   tags              String[]
   savedUsers        String[]
   shiftTiming       String?

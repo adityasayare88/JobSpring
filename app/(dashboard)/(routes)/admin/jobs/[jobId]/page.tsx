@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { JobPublishAction } from "./_components/job-publish-actions";
 
 const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
   // verify the mongoDB ID
@@ -33,7 +34,6 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
   const completionText = `(${completedFields}/${totalFields})`;
-
   const isComplete = requiredFields.every(Boolean);
 
   return (
@@ -53,6 +53,12 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
             Complete All Fields {completionText}
           </span>
         </div>
+        {/*action button*/}
+        <JobPublishAction 
+            jobId={params.jobId}
+            isPublished={job.isPusblished}
+            disabled={!isComplete}
+        />
       </div>
     </div>
   );
