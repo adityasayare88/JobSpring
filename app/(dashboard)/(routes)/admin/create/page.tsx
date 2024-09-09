@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "Job Title cannot be empty" }),
@@ -34,7 +35,13 @@ const JobCreatePage = () => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      const response = await axios.post("/api/jobs", values);
+      console.log(response);
+    } catch (error) {
+      console.log((error as Error)?.message);
+      // toast notification
+    }
   };
 
   return (
