@@ -1,13 +1,14 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { JobPublishAction } from "./_components/job-publish-actions";
 import { Banner } from "@/components/banner";
+import { IconBadge } from "@/components/icon-badge";
+import { TitleForm } from "./_components/title-form";
 
 const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
-  // verify the mongoDB ID
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
   if (!validObjectIdRegex.test(params.jobId)) {
     return redirect("/admin/jobs");
@@ -55,10 +56,10 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
           </span>
         </div>
         {/*action button*/}
-        <JobPublishAction 
-            jobId={params.jobId}
-            isPublished={job.isPusblished}
-            disabled={!isComplete}
+        <JobPublishAction
+          jobId={params.jobId}
+          isPublished={job.isPusblished}
+          disabled={!isComplete}
         />
       </div>
 
@@ -66,10 +67,25 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
 
       {!job.isPusblished && (
         <Banner
-        variant = {"warning"}
-        label = " This job is unpublished. It will not be visible in the jobs list"
+          variant={"warning"}
+          label=" This job is unpublished. It will not be visible in the jobs list"
         />
       )}
+
+      {/* container layout*/}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+        <div>
+          {/*title*/}
+          <div className="flex items-center gap-x-2">
+            <IconBadge icon={LayoutDashboard} />
+            <h2 className="text-xl text-neutral-700">Customize your Job</h2>
+          </div>
+
+          {/*title form*/}
+          <TitleForm initialData={job} jobId={job.id}/>
+
+        </div>
+      </div>
     </div>
   );
 };
