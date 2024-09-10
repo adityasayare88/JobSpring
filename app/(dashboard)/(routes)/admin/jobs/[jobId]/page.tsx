@@ -7,6 +7,7 @@ import { JobPublishAction } from "./_components/job-publish-actions";
 import { Banner } from "@/components/banner";
 import { IconBadge } from "@/components/icon-badge";
 import { TitleForm } from "./_components/title-form";
+import { CategoryForm } from "./_components/category-form";
 
 const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -46,6 +47,17 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
   const completedFields = requiredFields.filter(Boolean).length;
   const completionText = `(${completedFields}/${totalFields})`;
   const isComplete = requiredFields.every(Boolean);
+
+  function category(arg0: {
+    label: any;
+    value: any;
+  }): (
+    value: { id: string; name: string; createdAt: Date; updatedAt: Date },
+    index: number,
+    array: { id: string; name: string; createdAt: Date; updatedAt: Date }[]
+  ) => { label: string; value: string } {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div className="p-6">
@@ -92,6 +104,16 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
 
           {/*title form*/}
           <TitleForm initialData={job} jobId={job.id} />
+
+          {/*category form*/}
+          <CategoryForm
+            initialData={job}
+            jobId={job.id}
+            options={categories.map((category) => ({
+              label: category.name,
+              value: category.id,
+            }))}
+          />
         </div>
       </div>
     </div>
