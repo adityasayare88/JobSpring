@@ -25,7 +25,7 @@ export const JobPublishAction = ({
     <div className="flex items-center gap-x-3">
       <Button
         variant={"outline"}
-        onClick={onclick}
+        onClick={onClick}
         disabled={disabled || isLoading}
         size={"sm"}
       >

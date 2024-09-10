@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { JobPublishAction } from "./_components/job-publish-actions";
+import { Banner } from "@/components/banner";
 
 const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
   // verify the mongoDB ID
@@ -60,6 +61,15 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
             disabled={!isComplete}
         />
       </div>
+
+      {/*warning before publishing the course*/}
+
+      {!job.isPusblished && (
+        <Banner
+        variant = {"warning"}
+        label = " This job is unpublished. It will not be visible in the jobs list"
+        />
+      )}
     </div>
   );
 };
