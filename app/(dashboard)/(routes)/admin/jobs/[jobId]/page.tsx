@@ -27,11 +27,20 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
     },
   });
 
+  const categories = await db.category.findMany({
+    orderBy: { name: "asc" },
+  });
+
   if (!job) {
     return redirect("/admin/jobs");
   }
 
-  const requiredFields = [job.title, job.description, job.imageUrl];
+  const requiredFields = [
+    job.title,
+    job.description,
+    job.imageUrl,
+    job.categoryId,
+  ];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
@@ -82,8 +91,7 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
           </div>
 
           {/*title form*/}
-          <TitleForm initialData={job} jobId={job.id}/>
-
+          <TitleForm initialData={job} jobId={job.id} />
         </div>
       </div>
     </div>
