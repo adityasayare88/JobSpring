@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Search } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,21 +18,36 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { ListItem } from "./list-item";
 
-interface ComboBoxProps {
+interface ComboboxProps {
   options: { label: string; value: string }[];
   value?: string;
   onChange: (value: string) => void;
   heading: string;
 }
 
-export const ComboBox = ({
+export const Combobox = ({
   options,
   value,
   onChange,
   heading,
-}: ComboBoxProps) => {
+}: ComboboxProps) => {
   const [open, setOpen] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [filtered, setFiltered] = React.useState<
+    { label: string; value: string }[]
+  >([]);
+
+  const handleSearchTerm = (e: any) => {
+    setSearchTerm(e.target.value);
+    setFiltered(
+      options.filter((item) =>
+        item.label.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -40,38 +55,54 @@ export const ComboBox = ({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-full justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            ? options.find((option) => option.value === value)?.label
+            : "Select option..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-full p-0 md:min-w-96">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <div className="w-full px-2 py-1 flex items-center border rounded-md border-gray-100">
+            <Search className="mr-2 h-4 w-4 min-w-4" />
+            <input
+              type="text"
+              placeholder="Search category"
+              onChange={handleSearchTerm}
+              className="flex-1 w-full outline-none text-sm py-1"
+            />
+          </div>
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
+            <CommandGroup heading={heading}>
+              {searchTerm === "" ? (
+                options.map((option) => (
+                  <ListItem
+                    key={option.value}
+                    category={option}
+                    onSelect={() => {
+                      onChange(option.value === value ? "" : option.value);
+                      setOpen(false);
+                    }}
+                    isChecked={option?.value === value}
                   />
-                  {framework.label}
-                </CommandItem>
-              ))}
+                ))
+              ) : filtered.length > 0 ? (
+                filtered.map((option) => (
+                  <ListItem
+                    key={option.value}
+                    category={option}
+                    onSelect={() => {
+                      onChange(option.value === value ? "" : option.value);
+                      setOpen(false);
+                    }}
+                    isChecked={option?.value === value}
+                  />
+                ))
+              ) : (
+                <CommandEmpty>No Category Found</CommandEmpty>
+              )}
             </CommandGroup>
           </CommandList>
         </Command>

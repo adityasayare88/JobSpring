@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ComboBox } from "@/components/ui/combo-box";
+import { Combobox } from "@/components/ui/combo-box";
 import {
   Form,
   FormControl,
@@ -106,10 +106,10 @@ export const CategoryForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ComboBox 
-                    heading = "Categories"
-                    options={options}
-                    {...field}
+                    <Combobox
+                      options={options}
+                      heading="Categories"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
