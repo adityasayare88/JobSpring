@@ -24,7 +24,11 @@ export const POST = async (req: Request) => {
 
     return NextResponse.json(job);
   } catch (error) {
-    console.log(`[JOB_POST] : ${error}`);
+    if (error instanceof Error) {
+      console.log(`[JOB_POST] : ${error.message}`);
+    } else {
+      console.log(`[JOB_POST] : ${String(error)}`);
+    }
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };

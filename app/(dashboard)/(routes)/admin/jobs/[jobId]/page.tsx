@@ -114,6 +114,9 @@ const JobDetailsPage = async ({ params }: { params: { jobId: string } }) => {
               value: category.id,
             }))}
           />
+
+          {/* cover image */}
+          <ImageForm />
         </div>
       </div>
     </div>
