@@ -101,8 +101,11 @@ export const ImageForm = ({ initialData, jobId }: ImageFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ImageUpload 
-                    
+                    <ImageUpload
+                      value={field.value}
+                      disabled={isSubmitting}
+                      onChange={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange("")}
                     />
                   </FormControl>
                   <FormMessage />
