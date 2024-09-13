@@ -1,4 +1,4 @@
-# 🚀 Build a Fullstack Online Job Portal 🌟
+# 🚀 JobSpring: Fullstack Online Job Portal 🌟
 
 Welcome to our cutting-edge online job portal project! This full-stack application leverages modern technologies to create a seamless experience for job seekers and employers alike.
 
