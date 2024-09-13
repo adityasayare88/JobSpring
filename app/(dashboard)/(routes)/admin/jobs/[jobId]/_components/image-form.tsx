@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageUpload } from "@/components/image-upload";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -77,7 +78,7 @@ export const ImageForm = ({ initialData, jobId }: ImageFormProps) => {
             <ImageIcon className="h-10 w-10 text-neutral-500" />
           </div>
         ) : (
-          <div className="relative aspect-video mt-2">
+          <div className="relative w-full h-60 aspect-video mt-2">
             <Image
               alt="Cover Image"
               fill
@@ -100,10 +101,8 @@ export const ImageForm = ({ initialData, jobId }: ImageFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="e.g 'Full-Stack developer'"
-                      {...field}
+                    <ImageUpload 
+                    
                     />
                   </FormControl>
                   <FormMessage />
