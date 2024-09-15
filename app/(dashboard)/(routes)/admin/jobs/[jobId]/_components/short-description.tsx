@@ -21,7 +21,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-interface CategoryFormProps {
+interface ShortDescriptionProps {
   initialData: Job;
   jobId: string;
   options: { label: string; value: string }[];
@@ -31,11 +31,11 @@ const formSchema = z.object({
   categoryId: z.string().min(1),
 });
 
-export const CategoryForm = ({
+export const ShortDescription = ({
   initialData,
   jobId,
   options,
-}: CategoryFormProps) => {
+}: ShortDescriptionProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
@@ -107,8 +107,8 @@ export const CategoryForm = ({
                 <FormItem>
                   <FormControl>
                     <ComboBox
-                      heading="Categories"
                       options={options}
+                      heading="Categories"
                       {...field}
                     />
                   </FormControl>

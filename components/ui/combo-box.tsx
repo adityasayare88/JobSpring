@@ -20,19 +20,19 @@ import {
 } from "@/components/ui/popover";
 import { ListItem } from "./list-item";
 
-interface ComboboxProps {
+interface ComboBoxProps {
   options: { label: string; value: string }[];
   value?: string;
   onChange: (value: string) => void;
   heading: string;
 }
 
-export const Combobox = ({
+export const ComboBox = ({
   options,
   value,
   onChange,
   heading,
-}: ComboboxProps) => {
+}: ComboBoxProps) => {
   const [open, setOpen] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [filtered, setFiltered] = React.useState<
@@ -53,7 +53,7 @@ export const Combobox = ({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          role="combobox"
+          role="ComboBox"
           aria-expanded={open}
           className="w-full justify-between"
         >
